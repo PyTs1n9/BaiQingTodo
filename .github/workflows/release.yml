@@ -24,10 +24,16 @@ jobs:
       - name: 安装 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm                # 自动缓存 node_modules，加速 npm ci
 
       - name: 安装 Rust
         uses: dtolnay/rust-toolchain@stable
+
+      - name: 缓存 Rust 构建产物
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri     # 缓存 src-tauri/target/，加速 cargo build
 
       - name: 安装前端依赖
         run: npm ci
@@ -39,6 +45,30 @@ jobs:
         with:
           tagName: ${{ github.ref_name }}
           releaseName: 'BaiQingTodo v__VERSION__'
-          releaseBody: '详见 CHANGELOG 或提交记录'
+          releaseBody: |
+            ## 新增 | New
+            - 磁贴功能：可在记事本界面订出磁贴，磁贴默认置顶窗口，可通过Pin按钮取消置顶，磁贴窗口可自由拖动和缩放。
+            - 快捷键全局入口：新增ctrl+space打开和隐藏桌面端，快捷键可在设置中更改。
+            - 字体大小缩放：新增ctrl+滚轮可在记事本中将字体放大缩小。
+            - 优化待办事项：新增选择待办事项任务类型分类组件。
+            - 优化待办事项：新增点击任务优先级可由 低-中-高 的顺序进行切换。
+            - 新增系统托盘：打开软件后右下角会挂载后台，不会出现关闭界面就退出软件的情况。
+            - 新增字数实时显示功能。
+
+
+            ## 改进 | Improved
+            - 整体界面优化：取消了titlebar边框，取消了左下角设置栏，将设置按钮放置整个软件右上角。
+            - 图标LOGO优化：将默认的Tauri图标LOGO换成了柏青Todo专属LOGO
+
+            ## 修复 | Fixed
+            - 修复了待办事项添加任务后无法直接重命名的BUG
+            - 修复了待办事项任务列表无法拖动的BUG
+
+            ## 删除 | Deleted
+            - 删除了字体选择和字体大小功能
+
+            ## 下载 | Download
+            - `pytsing-to-do.exe` — 自包含可执行文件（无需额外运行时，开箱即用）
+            - `BaiQingTodo_<version>_x64-setup.msi` — Windows 安装包
           releaseDraft: false
           prerelease: false
