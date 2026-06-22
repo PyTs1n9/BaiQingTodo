@@ -6,7 +6,7 @@
 
 <img src="./src-tauri/icons/icon.png" width="120" alt="Cyan Notepad 图标">
 
-# Cyan Notepad
+# Cyan Notepad 青の记事本
 
 轻量、优雅、现代化的 Windows 桌面工具箱<br>
 基于 Tauri v2 + React 19 + TypeScript 构建
