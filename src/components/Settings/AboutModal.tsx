@@ -6,7 +6,7 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 
 const GITHUB_URL = "https://github.com/PyTs1n9/Cyan-Notepad";
 const GITHUB_API_LATEST = "https://api.github.com/repos/PyTs1n9/Cyan-Notepad/releases/latest";
-const APP_VERSION = "0.1.2";
+const APP_VERSION = "0.1.3";
 
 type UpdateStatus = "idle" | "checking" | "upToDate" | "newVersion" | "error";
 
